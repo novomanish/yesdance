@@ -1,0 +1,19 @@
+{
+  "name": "yesdance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://novomanish@github.com/novomanish/yesdance.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/novomanish/yesdance/issues"
+  },
+  "homepage": "https://github.com/novomanish/yesdance#readme"
+}
