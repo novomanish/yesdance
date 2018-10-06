@@ -1,0 +1,14 @@
+View 1: Register for Event
+
+Customer Selection
+    search field (search by name, email, phone)
+        -> customer creation
+        -> customer data entry
+
+Event Selection
+    -> Event List
+        Single Selection
+        Multiple Selection
+Price Total
+
+Mark Payment
