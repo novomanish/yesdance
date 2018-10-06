@@ -1,9 +1,47 @@
 const express = require('express');
 const router = express.Router();
 
+// MYSQL
+const mysql = require('mysql');
+const host = 'localhost';
+const database = 'main';
+const user = 'root';
+const password = 'welcome$$123';
+const connection = mysql.createConnection({
+  host,
+  user,
+  password,
+  database
+});
+
+// SQL BUILDER
+const SQLBuilder = require('json-sql-builder2');
+
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  const sql = new SQLBuilder('MySQL');
+  const customersSQL = sql.$select({
+    id: true,
+    fname:true,
+    sname: true,
+    email: true,
+    phone: true,
+    $from: `${database}.customer`
+  });
+  console.log(customersSQL);
+
+
+  connection.query(
+    customersSQL,
+    function selectCb(err, results, fields) {
+      if (err) {
+        throw err;
+      }
+      res.send(results);
+      connection.end();
+    }
+  );
 });
 
 module.exports = router;
