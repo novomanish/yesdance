@@ -7,7 +7,8 @@ const host = 'localhost';
 const database = 'main';
 const user = 'root';
 const password = 'welcome$$123';
-const connection = mysql.createConnection({
+const pool  = mysql.createPool({
+  connectionLimit : 10,
   host,
   user,
   password,
@@ -32,14 +33,13 @@ router.get('/', function(req, res, next) {
   console.log(customersSQL);
 
 
-  connection.query(
+  pool.query(
     customersSQL,
     function selectCb(err, results, fields) {
       if (err) {
         throw err;
       }
       res.send(results);
-      connection.end();
     }
   );
 });
