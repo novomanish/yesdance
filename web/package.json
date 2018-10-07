@@ -2,10 +2,31 @@
   "name": "yesdance-frontend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production"
   },
   "author": "novomanish@gmail.com",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "html-webpack-plugin": "^3.1.0",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-middleware": "^3.4.0",
+    "webpack-dev-server": "^3.1.1"
+  },
+  "dependencies": {
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "reactstrap": "^6.5.0"
+  }
 }
