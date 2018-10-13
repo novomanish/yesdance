@@ -16,7 +16,9 @@ class Register extends React.Component {
   render() {
     return (
       <div>
-        Hello
+      Hello
+        {' '}
+        {this.props.customers[0] && this.props.customers[0].fname}
       </div>
     );
   }
@@ -24,6 +26,6 @@ class Register extends React.Component {
 
 export default connect(
   state => ({
-    customers: state.customers,
+    customers: state.customers.data,
   }),
 )(Register);
