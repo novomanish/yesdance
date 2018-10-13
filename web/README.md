@@ -72,8 +72,8 @@ module.exports = {
   plugins: [htmlWebpackPlugin]
 };
 ```
-7. Create **src** folder with **index.js** and **index.html** file.
-8. **index.js** should have:
+7. Create **src** folder with **reducer.js** and **index.html** file.
+8. **reducer.js** should have:
 ```
 import React from "react";
 import ReactDOM from "react-dom";
