@@ -5,6 +5,7 @@ import Test from './component/test';
 import Register from './component/register';
 import store from './redux/store';
 
+
 export default () => (
   <Provider store={store}>
     <BrowserRouter>

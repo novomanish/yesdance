@@ -2,7 +2,7 @@ CREATE SCHEMA `main` ;
 CREATE TABLE `main`.`customer` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fname` VARCHAR(100) NULL,
-  `sname` VARCHAR(100) NULL,
+  `lname` VARCHAR(100) NULL,
   `email` VARCHAR(100) NULL,
   `phone` VARCHAR(100) NULL,
   PRIMARY KEY (`id`));

@@ -4,5 +4,9 @@
     "react/jsx-filename-extension": ["never"],
     "react/prop-types": ["never"],
     "react/destructuring-assignment": ["never"]
-  }
+  },
+  "plugins": [
+    "babel"
+  ],
+  "parser": "babel-eslint"
 }

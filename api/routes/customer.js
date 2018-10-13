@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
   const customersSQL = sql.$select({
     id: true,
     fname:true,
-    sname: true,
+    lname: true,
     email: true,
     phone: true,
     $from: `${database}.customer`
