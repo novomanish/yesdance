@@ -1,9 +1,8 @@
-import React from 'react'
-class App extends React.Component {
-  render() {
-    return (<div>Register <a href={"test"}>Test</a>
-    </div>)
-  }
-}
+import React from 'react';
 
-export default App;
+export default () => (
+  <div>
+    Register
+    <a href="test">Test</a>
+  </div>
+);
