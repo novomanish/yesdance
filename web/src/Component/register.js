@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
+import QRCode from 'qrcode';
 import {
   Input, InputGroup, InputGroupAddon, InputGroupText,
 } from 'reactstrap';
@@ -15,6 +16,7 @@ class Register extends React.Component {
     phone: '',
     email: '',
     id: null,
+    idQR: null,
   }
 
   componentDidMount() {
@@ -30,6 +32,13 @@ class Register extends React.Component {
     this.setState({
       fname, lname, phone, email, id,
     });
+    QRCode.toDataURL(`${id}`)
+      .then((idQR) => {
+        this.setState({ idQR });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     console.log('Option selected:', selectedOption);
   }
 
@@ -40,7 +49,7 @@ class Register extends React.Component {
 
   render() {
     const {
-      selectedOption, fname, lname, phone, email,
+      selectedOption, fname, lname, phone, email, idQR
     } = this.state;
     const readonly = !!selectedOption;
 
@@ -53,15 +62,31 @@ class Register extends React.Component {
             options={this.getOptions()}
             placeholder="Search Customer..."
           />
+          {idQR ? <img src={idQR} /> : null}
           <InputGroup>
             <InputGroupAddon addonType="append">
               <InputGroupText>First Name</InputGroupText>
             </InputGroupAddon>
-            <Input type="text" name="fname" value={fname} readOnly={readonly} />
+            <Input type="text" value={fname} readOnly={readonly} />
           </InputGroup>
-          <Input type="text" name="fname" value={lname} placeholder="Last Name" readOnly={readonly} />
-          <Input type="phone" name="fname" value={phone} placeholder="Phone" readOnly={readonly} />
-          <Input type="email" name="fname" value={email} placeholder="Email" readOnly={readonly} />
+          <InputGroup>
+            <InputGroupAddon addonType="append">
+              <InputGroupText>Last Name</InputGroupText>
+            </InputGroupAddon>
+            <Input type="text" value={lname} readOnly={readonly} />
+          </InputGroup>
+          <InputGroup>
+            <InputGroupAddon addonType="append">
+              <InputGroupText>Phone</InputGroupText>
+            </InputGroupAddon>
+            <Input type="phone" value={phone} readOnly={readonly} />
+          </InputGroup>
+          <InputGroup>
+            <InputGroupAddon addonType="append">
+              <InputGroupText>Email</InputGroupText>
+            </InputGroupAddon>
+            <Input type="email" value={email} readOnly={readonly} />
+          </InputGroup>
         </div>
         <div style={{ width: '50%', float: 'left' }}>right</div>
 
