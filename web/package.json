@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
-    "lint" : "eslint ./src"
+    "lint": "eslint ./src"
   },
   "author": "novomanish@gmail.com",
   "license": "ISC",
@@ -32,10 +32,12 @@
   "dependencies": {
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "redux": "4.0.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "reactstrap": "^6.5.0"
+    "reactstrap": "^6.5.0",
+    "redux": "4.0.0",
+    "redux-promise-middleware": "^5.1.1",
+    "redux-thunk": "^2.3.0"
   }
 }
