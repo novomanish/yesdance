@@ -5,6 +5,7 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const customerRouter = require('./routes/customer');
+const eventRouter = require('./routes/event');
 
 const app = express();
 
@@ -21,5 +22,6 @@ app.use((req, res, next) => {
 
 app.use('/', indexRouter);
 app.use('/api/customer', customerRouter);
+app.use('/api/event', eventRouter);
 
 module.exports = app;
