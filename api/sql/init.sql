@@ -1,5 +1,5 @@
 CREATE SCHEMA `main` ;
-CREATE TABLE `main`.`customer` (
+CREATE TABLE `main`.`person` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fname` VARCHAR(100) NULL,
   `lname` VARCHAR(100) NULL,

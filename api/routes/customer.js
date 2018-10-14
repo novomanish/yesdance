@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
     lname: true,
     email: true,
     phone: true,
-    $from: `${database}.customer`
+    $from: `${database}.person`
   });
   console.log(customersSQL);
 
