@@ -4,7 +4,12 @@ const config = require('../config/db');
 
 
 router.get('/', (req, res) => {
-  dao.query(`select e.id, e.type, e.startdate, e.enddate, p.name, p.id eventid from ${config.database}.event as e left join ${config.database}.product p on p.id = e.type;`).then((results) => {
+  dao.query(`
+    SELECT p.name, e.id, e.type, e.startdate, e.enddate, p.id eventid 
+    FROM ${config.database}.event as e 
+    LEFT JOIN ${config.database}.product p ON p.id = e.type
+    WHERE e.enddate > NOW()
+    ORDER BY e.enddate ASC;`).then((results) => {
     res.send(results);
   });
 });
