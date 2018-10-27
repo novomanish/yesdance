@@ -1,4 +1,4 @@
 import { combineReducers } from 'redux';
-import customers from './customerReducer';
+import customers from './customerAPI';
 
 export default combineReducers({ customers });

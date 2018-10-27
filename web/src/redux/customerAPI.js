@@ -16,5 +16,17 @@ export function getCustomersList() {
     return { type: GET_CUSTOMER_START };
   };
 }
-/*
-*/
+
+const initialState = {
+  data: [],
+};
+
+export default function (state = initialState, action) {
+  switch (action.type) {
+    case GET_CUSTOMER_COMPLETE: {
+      return { ...state, data: action.payload };
+    }
+    default:
+      return initialState;
+  }
+}

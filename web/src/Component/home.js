@@ -6,9 +6,9 @@ import {
   Input, InputGroup, InputGroupAddon, InputGroupText,
 } from 'reactstrap';
 
-import { getCustomersList } from '../redux/customerAction';
+import { getCustomersList } from '../redux/customerAPI';
 
-class Register extends React.Component {
+class Home extends React.Component {
   state = {
     selectedOption: null,
     fname: '',
@@ -88,7 +88,9 @@ class Register extends React.Component {
             <Input type="email" value={email} readOnly={readonly} />
           </InputGroup>
         </div>
-        <div style={{ width: '50%', float: 'left' }}>right</div>
+        <div style={{ width: '50%', float: 'left' }}>
+          Products
+        </div>
 
       </div>
     );
@@ -99,4 +101,4 @@ export default connect(
   state => ({
     customers: state.customers.data,
   }),
-)(Register);
+)(Home);
