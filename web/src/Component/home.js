@@ -7,6 +7,7 @@ import {
 } from 'reactstrap';
 
 import { getCustomersList } from '../redux/customerAPI';
+import { getUpcomingProducts } from '../redux/productAPI';
 
 class Home extends React.Component {
   state = {
@@ -22,6 +23,7 @@ class Home extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(getCustomersList());
+    dispatch(getUpcomingProducts());
   }
 
   handleChange = (selectedOption) => {
@@ -47,9 +49,18 @@ class Home extends React.Component {
     label: `${c.fname} ${c.lname || ''}`,
   }))
 
+  upcomingProducts() {
+    return this.props.products.upcoming.map(product => (
+      <fragment>
+        {product.event_name}
+        {(new Date(product.startdate)).toString()}
+      </fragment>
+    ));
+  }
+
   render() {
     const {
-      selectedOption, fname, lname, phone, email, idQR
+      selectedOption, fname, lname, phone, email, idQR,
     } = this.state;
     const readonly = !!selectedOption;
 
@@ -90,6 +101,10 @@ class Home extends React.Component {
         </div>
         <div style={{ width: '50%', float: 'left' }}>
           Products
+
+          Upcoming:
+
+          {this.upcomingProducts()}
         </div>
 
       </div>
@@ -100,5 +115,6 @@ class Home extends React.Component {
 export default connect(
   state => ({
     customers: state.customers.data,
+    products: state.products,
   }),
 )(Home);
