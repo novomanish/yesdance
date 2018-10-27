@@ -1,0 +1,20 @@
+Persons
+    Customers
+    Instructors
+Products
+    Membership
+    Event
+Membership
+    Validity
+Event
+    -> Event Time
+Event Types
+Discounts
+    -> Valid Membership purchase
+    -> Valid Event purchase of => Event Type
+Purchased Items
+    -> Person
+    -> Product
+    -> Price paid
+    -> purchase date
+    -> Validity

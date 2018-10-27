@@ -3,10 +3,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const customerRouter = require('./routes/customer');
-const eventRouter = require('./routes/event');
-
 const app = express();
 
 app.use(logger('dev'));
@@ -20,8 +16,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', indexRouter);
-app.use('/api/customer', customerRouter);
-app.use('/api/event', eventRouter);
+require('./routes/routes')(app);
 
 module.exports = app;

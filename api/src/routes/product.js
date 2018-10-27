@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
     FROM ${config.database}.event as e 
     LEFT JOIN ${config.database}.product p ON p.id = e.type
     WHERE e.enddate > NOW()
-    ORDER BY e.enddate ASC;`).then((results) => {
+    ORDER BY e.enddate ASC;`
+  ).then((results) => {
     res.send(results);
   });
 });

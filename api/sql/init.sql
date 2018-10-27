@@ -14,10 +14,10 @@ CREATE TABLE `main`.`product` (
   `name` VARCHAR(100) NULL,
   PRIMARY KEY (`id`));
 
-INSERT INTO `main`.`product` (`name`) VALUES ('Yearly Membership');
-INSERT INTO `main`.`product` (`name`) VALUES ('Monthly Membership');
-INSERT INTO `main`.`product` (`name`) VALUES ('Salsa');
-INSERT INTO `main`.`product` (`name`) VALUES ('Bachata');
+INSERT INTO `main`.`product` (event_ind) VALUES ('Yearly Membership');
+INSERT INTO `main`.`product` (event_ind) VALUES ('Monthly Membership');
+INSERT INTO `main`.`product` (event_ind) VALUES ('Salsa');
+INSERT INTO `main`.`product` (event_ind) VALUES ('Bachata');
 
 CREATE TABLE event
 (
