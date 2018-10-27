@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import Select from 'react-select';
 import QRCode from 'qrcode';
 import {
-  Input, InputGroup, InputGroupAddon, InputGroupText,
+  CustomInput, FormGroup,
+  Input, InputGroup, InputGroupAddon, InputGroupText, Label,
 } from 'reactstrap';
 
+import moment from 'moment';
 import { getCustomersList } from '../redux/customerAPI';
 import { getUpcomingProducts } from '../redux/productAPI';
 
@@ -18,6 +20,7 @@ class Home extends React.Component {
     email: '',
     id: null,
     idQR: null,
+    selectedProducts: [],
   }
 
   componentDidMount() {
@@ -49,12 +52,46 @@ class Home extends React.Component {
     label: `${c.fname} ${c.lname || ''}`,
   }))
 
+  addProduct(product) {
+    const { selectedProducts } = this.state;
+    selectedProducts.push(product);
+    this.setState({ selectedProducts });
+  }
+
+  removeProduct(product) {
+    const { selectedProducts } = this.state;
+    for (let i = 0; i < selectedProducts.length; i += 1) {
+      const p = selectedProducts[i];
+      if (p.product_ind === product.product_ind) {
+        selectedProducts.splice(i, 1);
+      }
+    }
+    this.setState({ selectedProducts });
+  }
+
+  toggleProduct(product) {
+    return (event) => {
+      if (event.target.checked) this.addProduct(product);
+      else this.removeProduct(product);
+    };
+  }
+
+  isProductSelected(product) {
+    const found = this.state.selectedProducts.find(p => p.product_ind === product.product_ind);
+    return found;
+  }
+
   upcomingProducts() {
     return this.props.products.upcoming.map(product => (
-      <fragment>
-        {product.event_name}
-        {(new Date(product.startdate)).toString()}
-      </fragment>
+      <div>
+        <CustomInput
+          type="checkbox"
+          id={product.product_ind}
+          label={`${product.event_name} ${moment(product.startdate).format('h:mm a')}`}
+          onChange={this.toggleProduct(product)}
+          checked={this.isProductSelected(product)}
+        />
+      </div>
     ));
   }
 
