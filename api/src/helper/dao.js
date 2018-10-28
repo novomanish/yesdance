@@ -4,6 +4,7 @@ const mysql = require('../helper/mysqlpool');
 const config = require('../config/db');
 
 function query(sqlQuery, values) {
+  console.log(sqlQuery, values);
   return new Promise(((resolve) => {
     mysql.query(
       sqlQuery,
