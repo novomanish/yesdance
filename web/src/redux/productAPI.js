@@ -27,6 +27,6 @@ export default function (state = initialState, action) {
       return { ...state, upcoming: action.payload };
     }
     default:
-      return initialState;
+      return state;
   }
 }
