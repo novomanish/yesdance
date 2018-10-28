@@ -5,6 +5,7 @@ module.exports = (app) => {
 
   map('customer', require('./customer'));
   map('product', require('./product').router);
-  map('quote', require('./quote'));
+  map('quote', require('./quote').router);
+  map('purchase', require('./purchase').router);
 }
 

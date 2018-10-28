@@ -3,9 +3,14 @@ const dao = require('../helper/dao');
 const product = require('./product');
 
 router.post('/', async (req, res) => {
-  let total = 0, products;
-  if(req.body.products && req.body.products.length > 0) {
-    products = await product.getProductDetails(req.body.products);
+  const quote = await getQuote({products: req.body.products, customer: req.body.customer});
+  res.send(quote);
+});
+
+const getQuote = async ({products, customer}) => {
+  let total = 0;
+  if(products && products.length > 0) {
+    products = await product.getProductDetails(products);
     const discountsOfCatalog = await getDiscountsForProducts(products);
     const srcProducts = products;
     const discounts = filterValidDiscounts({discounts: discountsOfCatalog, srcProducts});
@@ -13,12 +18,11 @@ router.post('/', async (req, res) => {
     calculatePrice(products);
     total = calculateTotal(products);
   }
-
-  res.send({
+  return {
     products,
     total
-  });
-});
+  }
+}
 
 const getDiscountsForProducts = (products) => {
   return dao.query(`
@@ -60,4 +64,7 @@ const calculateTotal = (products) => {
 }
 
 
-module.exports = router;
+module.exports = {
+  router,
+  getQuote
+};
