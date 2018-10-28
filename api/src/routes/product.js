@@ -8,15 +8,16 @@ router.get('/upcoming', (req, res) => {
 });
 
 
-const getUpcomingProducts = () => {
-  return dao.query(`
+const getUpcomingProducts = async () => {
+  const products = await dao.query(`
     SELECT * 
     FROM product as p 
     LEFT JOIN event e ON p.event_ind = e.event_ind
-    LEFT JOIN event_type et ON e.event_type_ind = et.event_type_ind
     WHERE e.startdate > NOW()
     ORDER BY e.enddate ASC;`
   )
+  await joinEvents(products);
+  return products;
 }
 
 const getProductDetails = async (rawProducts) => {

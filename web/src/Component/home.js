@@ -87,7 +87,7 @@ class Home extends React.Component {
         <CustomInput
           type="checkbox"
           id={product.product_ind}
-          label={`${product.event_name} ${moment(product.startdate).format('h:mm a')}`}
+          label={`${product.event.event_name} ${moment(product.event.startdate).format('h:mm a')}`}
           onChange={this.toggleProduct(product)}
           checked={this.isProductSelected(product)}
         />
