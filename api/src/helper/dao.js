@@ -3,10 +3,11 @@ const SQLBuilder = require('json-sql-builder2');
 const mysql = require('../helper/mysqlpool');
 const config = require('../config/db');
 
-function query(sqlQuery) {
+function query(sqlQuery, values) {
   return new Promise(((resolve) => {
     mysql.query(
       sqlQuery,
+      values,
       (err, results) => {
         if (err) {
           throw err;

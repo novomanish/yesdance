@@ -4,7 +4,7 @@ module.exports = (app) => {
   }
 
   map('customer', require('./customer'));
-  map('product', require('./product'));
+  map('product', require('./product').router);
   map('quote', require('./quote'));
 }
 
