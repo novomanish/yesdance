@@ -44,7 +44,7 @@ const joinEvents = async (products) => {
     )
 
     productWithEvents.forEach(p => {
-      p.event = events.find(e => e.event_ind == p.event_ind)
+      p.event = events.find(e => e.event_ind == p.event_ind);
     });
   }
 }
@@ -65,8 +65,14 @@ const joinPrivileges = async (products) => {
   }
 }
 
+const helper = {
+  inds(product) {
+    return product.map(p => p.product_ind);
+  }
+}
 
 module.exports = {
   router,
-  getProductDetails
+  getProductDetails,
+  helper
 };
