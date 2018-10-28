@@ -3,13 +3,21 @@ const dao = require('../helper/dao');
 const product = require('./product');
 
 router.post('/', async (req, res) => {
-  const products = await product.getProductDetails(req.body.products);
-  const discountsOfCatalog = await getDiscountsForProducts(products);
-  const srcProducts = products;
-  const discounts = filterValidDiscounts({discounts: discountsOfCatalog, srcProducts});
-  attachDiscounts({discounts, products});
-  calculatePrice(products);
-  res.send(products);
+  let total = 0, products;
+  if(req.body.products && req.body.products.length > 0) {
+    products = await product.getProductDetails(req.body.products);
+    const discountsOfCatalog = await getDiscountsForProducts(products);
+    const srcProducts = products;
+    const discounts = filterValidDiscounts({discounts: discountsOfCatalog, srcProducts});
+    attachDiscounts({discounts, products});
+    calculatePrice(products);
+    total = calculateTotal(products);
+  }
+
+  res.send({
+    products,
+    total
+  });
 });
 
 const getDiscountsForProducts = (products) => {
@@ -42,6 +50,13 @@ const calculatePrice = (products) => {
     }
     if(!p.amount) p.amount = p.product_price;
   })
+}
+
+const calculateTotal = (products) => {
+  return products.reduce((totalSoFar, p) => {
+    console.log(p)
+    return totalSoFar + p.amount
+  }, 0);
 }
 
 

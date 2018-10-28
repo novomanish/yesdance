@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import Select from 'react-select';
 import QRCode from 'qrcode';
 import {
-  CustomInput, FormGroup,
-  Input, InputGroup, InputGroupAddon, InputGroupText, Label,
+  CustomInput,
+  Input, InputGroup, InputGroupAddon, InputGroupText,
 } from 'reactstrap';
 
 import moment from 'moment';
 import { getCustomersList } from '../redux/customerAPI';
 import { getUpcomingProducts } from '../redux/productAPI';
+import quoteAPI from '../redux/quoteAPI';
 
 class Home extends React.Component {
   state = {
@@ -70,9 +71,14 @@ class Home extends React.Component {
   }
 
   toggleProduct(product) {
+    const { selectedProducts } = this.state;
     return (event) => {
       if (event.target.checked) this.addProduct(product);
       else this.removeProduct(product);
+
+      quoteAPI({ products: selectedProducts }).then((response) => {
+        this.setState({ quote: response });
+      });
     };
   }
 
@@ -93,6 +99,28 @@ class Home extends React.Component {
         />
       </div>
     ));
+  }
+
+  renderQuote() {
+    const { quote } = this.state;
+    if (quote) {
+      return (
+        <div>
+          {quote.products ? quote.products.map(p => (
+            <div>
+              {p.event ? p.event.event_name : null}
+              {' '}
+              {p.amount}
+            </div>
+          )) : null}
+          <div>
+            Total:
+            {quote.total}
+          </div>
+        </div>
+      );
+    }
+    return null;
   }
 
   render() {
@@ -142,6 +170,10 @@ class Home extends React.Component {
           Upcoming:
 
           {this.upcomingProducts()}
+        </div>
+        <div>
+          Quotation:
+          {this.renderQuote()}
         </div>
 
       </div>
