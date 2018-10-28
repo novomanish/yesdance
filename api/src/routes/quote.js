@@ -4,9 +4,9 @@ const product = require('./product');
 
 router.post('/', async (req, res) => {
   const products = await product.getProductDetails(req.body.products);
-  const srcDiscounts = await getDiscountsForProducts(products);
+  const discountsOfCatalog = await getDiscountsForProducts(products);
   const srcProducts = products;
-  const discounts = filterValidDiscounts({srcDiscounts, srcProducts});
+  const discounts = filterValidDiscounts({discounts: discountsOfCatalog, srcProducts});
   attachDiscounts({discounts, products});
   calculatePrice(products);
   res.send(products);
@@ -22,8 +22,8 @@ const getDiscountsForProducts = (products) => {
   )
 }
 
-const filterValidDiscounts = ({srcDiscounts, srcProducts}) => {
-  return srcDiscounts.filter(d => !!srcProducts.find(p => p.product_ind == d.product_ind));
+const filterValidDiscounts = ({discounts, srcProducts}) => {
+  return discounts.filter(d => !!srcProducts.find(p => p.product_ind == d.product_ind));
 }
 
 const attachDiscounts = ({discounts, products}) => {
