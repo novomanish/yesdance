@@ -28,9 +28,9 @@ function get(table) {
   return query(sqlQuery);
 };
 
-function put(table, data) {
+const insert = async (table, data) => {
   const sqlQuery = sqlBuilder.$insert({
-    $table: 'purchase',
+    $table: table,
     $columns: (() => {
       const o = {};
       Object.keys(data).forEach(k => {
@@ -40,10 +40,12 @@ function put(table, data) {
     })(),
     $values: Object.keys(data).map(k => data[k])
   });
-  return query(sqlQuery.sql, sqlQuery.values);
+  const results = await query(sqlQuery.sql, sqlQuery.values);
+  return results.insertId;
 }
 
-exports.query = query;
-exports.get = get;
-exports.put = put;
-
+module.exports = {
+  query,
+  get,
+  insert
+}
