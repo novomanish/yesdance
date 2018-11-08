@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Select from 'react-select';
 import QRCode from 'qrcode';
 import {
+  Button,
   CustomInput,
   Input, InputGroup, InputGroupAddon, InputGroupText,
 } from 'reactstrap';
@@ -11,15 +12,18 @@ import moment from 'moment';
 import { getCustomersList } from '../redux/customerAPI';
 import { getUpcomingProducts } from '../redux/productAPI';
 import quoteAPI from '../redux/quoteAPI';
+import { sendForPurchase } from '../redux/purchaseAPI';
 
 class Home extends React.Component {
   state = {
     selectedOption: null,
-    fname: '',
-    lname: '',
-    phone: '',
-    email: '',
-    id: null,
+    customer: {
+      fname: '',
+      lname: '',
+      phone: '',
+      email: '',
+      person_ind: null,
+    },
     idQR: null,
     selectedProducts: [],
   }
@@ -33,12 +37,14 @@ class Home extends React.Component {
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
     const {
-      fname, lname, phone, email, id,
+      fname, lname, phone, email, person_ind,
     } = selectedOption.value;
     this.setState({
-      fname, lname, phone, email, id,
+      customer: {
+        fname, lname, phone, email, person_ind,
+      },
     });
-    QRCode.toDataURL(`${id}`)
+    QRCode.toDataURL(`${person_ind}`)
       .then((idQR) => {
         this.setState({ idQR });
       })
@@ -71,15 +77,20 @@ class Home extends React.Component {
   }
 
   toggleProduct(product) {
-    const { selectedProducts } = this.state;
+    const { selectedProducts, customer } = this.state;
     return (event) => {
       if (event.target.checked) this.addProduct(product);
       else this.removeProduct(product);
 
-      quoteAPI({ products: selectedProducts }).then((response) => {
+      quoteAPI({ products: selectedProducts, customer }).then((response) => {
         this.setState({ quote: response });
       });
     };
+  }
+
+  handlePurchase() {
+    const { dispatch } = this.props;
+    dispatch(sendForPurchase(this.state.quote));
   }
 
   isProductSelected(product) {
@@ -116,6 +127,7 @@ class Home extends React.Component {
           <div>
             Total:
             {quote.total}
+            <Button color="primary" onClick={this.handlePurchase.bind(this)}>Submit</Button>
           </div>
         </div>
       );
@@ -125,7 +137,9 @@ class Home extends React.Component {
 
   render() {
     const {
-      selectedOption, fname, lname, phone, email, idQR,
+      selectedOption, customer: {
+        fname, lname, phone, email, idQR,
+      },
     } = this.state;
     const readonly = !!selectedOption;
 
